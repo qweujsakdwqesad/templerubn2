@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/x-icon" href="images/pizzalogo.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Pizza Edition - Apps</title>
+    <link id="favicon" rel="icon" href="jsload/favicon.js" type="image/x-icon">
+    <script src="jsload/favicon.js"></script>
+    <script src="jsload/panickey.js"></script>
+    <script src="jsload/confirmation.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="analytics.js"></script>
+    <body>
+        <div class="navbar">
+            <div class="navbar-left">
+                <a href="index.html">
+                    <img src="images/pizzalogo.png" alt="Site Logo" width="30" height="30">
+                </a>
+                <a href="index.html">The Pizza Edition</a>
+            </div>
+            <div class="navbar-right">
+                <a href="popular.html">
+                    <img src="images/whitefire.png" alt="Game Icon" style="width: 1.25vw; height: auto;">
+                    Popular
+                </a>
+                <a href="g.html">
+                    <img src="images/whitegame.png" alt="Game Icon" style="width: 1.302vw; height: auto;">
+                    Games
+                </a>
+                <a href="apps.html">
+                    <img src="images/whitenblocks.png" alt="App Icon" style="width: 1.302vw; height: auto;">
+                    Apps
+                </a>
+                <a href="extra.html">
+                    <img src="images/whitesearchs.png" alt="Search Icon" style="width: 1.302vw; height: auto;">
+                    Extras
+                </a>
+                <a href="settings.html" class="navbar-img-link">
+                    <img src="images/icons8-settings-288.png" alt="Settings Icon" style="width: 1.502vw; height: auto;">
+                </a>
+            </div>
+        </div>
+    </body>
+      <style>
+        /* Style for search bar */
+        #search-container {
+            text-align: center;
+            margin-top: 6.25vw;
+            position: relative; /* Ensure z-index works */
+            z-index: 1; /* Ensure search bar stays above overlay */
+        }
+        #search-input {
+            padding: 1.042vw;
+            width: 26.042vw;
+            border-radius: 1.042vw; /* Rounded corners */
+            border: 0.052vw solid #f0d210;
+            font-size: 0.833vw;
+            background-image: url('images/searchwhite.png');
+            background-size: 1.302vw 1.302vw;
+            background-repeat: no-repeat;
+            background-position: 0.781vw center;
+            color: white; /* Set input text color to white */
+            text-indent: 1.042vw; /* Move the text to the right */
+            transition: transform 0.35s ease-in-out, box-shadow 0.3s ease-in-out;
+            background-color: rgb(30, 30, 30);
+            font-family: 'Bebas Neue', sans-serif;
+            padding-left: 1.563vw;
+            font-size: 1.563vw;
+            position: relative; /* Ensure z-index works */
+            z-index: 2; /* Ensure search bar stays above overlay */
+        }
+        #search-input::placeholder {
+            color: white; /* Set placeholder text color to white */
+        }
+        #search-input:focus {
+            transform: scale(1.05);
+            border: 0.052vw solid #f0d210;
+            outline: none; /* This line removes the default focus outline */
+            box-shadow: 0 0 1.042vw 0 #f0d210;
+        }
+        #search-results {
+            margin-top: 1.042vw;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .game {
+            margin: 0.521vw;
+            cursor: pointer;
+            position: relative; /* Add position relative to contain overlay */
+        }
+        .game img {
+            width: 10.417vw;
+            height: 10.417vw;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 1.042vw;
+            transition: all 0.35s ease; /* Add transition for all properties */
+        }
+        .game:hover img {
+            transform: scale(1.05);
+            box-shadow: 0 0 0 0.104vw #f0d210; /* Modified box-shadow for outline */
+            filter: brightness(0.7); /* Make the image darker */
+        }
+        .game .overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 1.25vw; /* Increase font size */
+            opacity: 0; /* Initial opacity */
+            transition: opacity 0.35s ease; /* Transition for opacity */
+        }
+        .game:hover .overlay {
+            opacity: 1; /* Fade in */
+        }
+
+        .footer {
+  margin-top: 30vw; 
+}
+
+
+    </style>
+    
+    </head>
+    <body>
+    
+    <div id="search-container">
+        <input type="text" id="search-input" placeholder="Search for a app...">
+    </div>
+    
+    <div id="search-results"></div>
+    
+    <script>
+// Sample data (replace with your own)
+const games = [
+{ name: "Chatroom", image: "/images/apps/discord-min.png", url: "/apps/chat/"},
+
+    // Add more games as needed
+];
+
+const searchInput = document.getElementById('search-input');
+const searchResults = document.getElementById('search-results');
+
+function displayResults(results) {
+    searchResults.innerHTML = '';
+    results.forEach(game => {
+        const gameElement = document.createElement('div');
+        gameElement.classList.add('game');
+        const imageElement = document.createElement('img');
+        imageElement.src = game.image;
+        imageElement.alt = game.name;
+        const overlayElement = document.createElement('div');
+        overlayElement.classList.add('overlay');
+        overlayElement.textContent = game.name;
+        gameElement.appendChild(imageElement);
+        gameElement.appendChild(overlayElement);
+        searchResults.appendChild(gameElement);
+        gameElement.addEventListener('click', () => {
+            // Redirect to the game's specific page when the image is clicked
+            window.location.href = game.url;
+        });
+    });
+}
+
+        function searchGames(query) {
+            const results = games.filter(game =>
+                game.name.toLowerCase().includes(query.toLowerCase())
+            );
+            displayResults(results);
+        }
+    
+        searchInput.addEventListener('input', () => {
+            const query = searchInput.value.trim();
+            searchGames(query);
+        });
+    
+        // Initial display of all games
+        displayResults(games);
+    </script>
+    
+    </body>
+    </html>
+  <!--particlejs start -->
+</head>
+<body>
+  <div id="particles-js"></div>
+
+
+  <script src="jsload/particle-load.js"></script>
+
+
+  <script src="jsload/particlejsscript.js"></script>
+</body>
+</html>
+
+  <!--particlejs end -->
+
+  
+<footer class="footer">
+    <div class="left">
+        <a href="index.html" class="logo-title">
+            <div class="logo">
+                <img src="images/pizzalogo.png" alt="Website Logo">
+            </div>
+            <span class="title">The Pizza Edition</span>
+        </a>
+    </div>
+    <div class="middle">
+        <a href="index.html">Home</a>
+        <a href="popular.html">Popular</a>
+        <a href="all.html">All</a>
+        <a href="apps.html">Apps</a>
+    </div>
+    <div class="right">
+        <a href="contact.html">Contact Us</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="https://discord.gg/vdABAxKBgm">Our Discord Server</a>
+        <a href="extra.html">Extras</a>
+    </div>
+</footer>
+
+
+  <!--strtscrollup -->
+  <style>
+    #scrollToTopContainer {
+        display: none;
+        position: fixed;
+        bottom: 1.042vw;
+        right: 1.042vw;
+        z-index: 99;
+    }
+
+    #scrollToTop {
+        background-color: #303030;
+        padding: 0.521vw;
+        border-radius: 1.042vw;
+        cursor: pointer;
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+        border: 0.104vw solid #303030; 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #scrollToTop:hover {
+        background-color: #222222;
+        border-color: #f0d210; 
+    }
+
+    #scrollToTop img {
+        width: 2.292vw; 
+        height: auto;
+        transition: transform 0.3s ease;
+    }
+
+    #scrollToTop:hover img {
+        transform: translateY(-0.26vw); 
+    }
+</style>
+<body>
+    
+    <div id="scrollToTopContainer">
+        <div id="scrollToTop">
+            <img src="images/2xuparrw.png" alt="Scroll to Top">
+        </div>
+    </div>
+    
+    <script>
+        window.onscroll = function() {scrollFunction()};
+    
+        function scrollFunction() {
+            var scrollToTopContainer = document.getElementById("scrollToTopContainer");
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                scrollToTopContainer.style.display = "block";
+            } else {
+                scrollToTopContainer.style.display = "none";
+            }
+        }
+    
+        document.getElementById("scrollToTop").addEventListener("click", function() {
+            scrollToTop();
+        });
+    
+        function scrollToTop() {
+            var scrollStep = -window.scrollY / (350 / 15);
+            var scrollInterval = setInterval(function() {
+                if (window.scrollY != 0) {
+                    window.scrollBy(0, scrollStep);
+                } else {
+                    clearInterval(scrollInterval);
+                }
+            }, 15);
+        }
+    </script>
+    
+    </body>
+    </html>
+      <!--endtscrollup -->
+               <!-- FPS Counter -->
+               <span id="fps">--</span>
+               <script src="jsload/fpsCheck.js"></script>
+
+
