@@ -1,24 +1,18 @@
-import './style.css'
-import javascriptLogo from './javascript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.js'
-
-document.querySelector('#app').innerHTML = `
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-      <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
-    </a>
-    <h1>Hello Vite!</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite logo to learn more
-    </p>
-  </div>
-`
-
-setupCounter(document.querySelector('#counter'))
+document.getElementById('uploadForm').onsubmit = function(event) {
+  alert('Form submitted');
+  console.log('Form submitted');
+  setTimeout(() => {
+    const swfContainer = document.getElementById('swfContainer');
+    const fileInput = document.querySelector('input[type=file]');
+    if (fileInput.files.length > 0) {
+      const filename = fileInput.files[0].name;
+      alert('File selected: ' + filename);
+      console.log('File selected:', filename);
+      swfContainer.innerHTML = `<object data="https://supreme-space-computing-machine-wrgjw9prp79ph5995-3000.app.github.dev/uploads/${filename}" class="full" id="myObject" width="800" height="600"></object>`;
+    } else {
+      alert('No file selected');
+      console.error('No file selected');
+    }
+  }, 2000); // Wait for 2 seconds for the upload to complete (adjust as needed)
+  return true;
+};
