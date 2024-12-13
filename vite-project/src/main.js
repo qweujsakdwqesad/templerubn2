@@ -8,7 +8,7 @@ document.getElementById('uploadForm').onsubmit = function(event) {
       const filename = fileInput.files[0].name;
       alert('File selected: ' + filename);
       console.log('File selected:', filename);
-      swfContainer.innerHTML = `<object data="https://supreme-space-computing-machine-wrgjw9prp79ph5995-3000.app.github.dev/uploads/${filename}" class="full" id="myObject" width="800" height="600"></object>`;
+      swfContainer.innerHTML = `<object data="http://upreme-space-computing-machine-wrgjw9prp79ph5995-3000.app.github.dev/uploads/${filename}" class="full" id="myObject" width="800" height="600"></object>`;
     } else {
       alert('No file selected');
       console.error('No file selected');
