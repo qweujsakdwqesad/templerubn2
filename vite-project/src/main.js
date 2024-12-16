@@ -15,7 +15,7 @@ document.getElementById('uploadForm').onsubmit = async function(event) {
 
     try {
       // Upload the file using fetch
-      const response = await fetch('https://supreme-space-computing-machine-wrgjw9prp79ph5995-3000.app.github.dev/upload', {
+      const response = await fetch('https://supreme-space-computing-machine-wrgjw9prp79ph5995-8000.app.github.dev/upload', {
         method: 'POST',
         body: formData
       });
@@ -31,7 +31,7 @@ document.getElementById('uploadForm').onsubmit = async function(event) {
 
       // Display the uploaded file using Ruffle
       const swfContainer = document.getElementById('swfContainer');
-      swfContainer.innerHTML = `<object data="https://supreme-space-computing-machine-wrgjw9prp79ph5995-3000.app.github.dev/uploads/${file.name}" class="full" id="myObject" width="1920" height="1080"></object>`;
+      swfContainer.innerHTML = `<object data="https://supreme-space-computing-machine-wrgjw9prp79ph5995-8000.app.github.dev/uploads/${file.name}" class="full" id="myObject" width="1920" height="1080"></object>`;
     } catch (error) {
       alert('Error uploading file');
       console.error('Error uploading file:', error);

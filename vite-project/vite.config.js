@@ -2,7 +2,7 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
   server: {
-    port: 3001, // Specify your port
+    port: 5000, // Specify your port
     cors: {
       origin: '*', // Allow all origins (for development purposes)
       methods: ['GET', 'POST'],
