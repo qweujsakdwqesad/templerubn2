@@ -6,11 +6,10 @@
   <script type="module" src="/main.js"></script>
 </head>
 <body>
-  <form id="uploadForm" action="http://supreme-space-computing-machine-wrgjw9prp79ph5995-3000.app.github.dev/upload" method="POST" enctype="multipart/form-data" target="uploadFrame">
+  <form id="uploadForm" enctype="multipart/form-data">
     <input type="file" name="file" accept=".swf">
     <button type="submit">Upload</button>
   </form>
-  <iframe id="uploadFrame" name="uploadFrame" style="display:none;"></iframe>
   <div id="swfContainer"></div>
   <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
 </body>

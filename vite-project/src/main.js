@@ -1,18 +1,43 @@
-document.getElementById('uploadForm').onsubmit = function(event) {
+document.getElementById('uploadForm').onsubmit = async function(event) {
+  event.preventDefault(); // Prevent default form submission
   alert('Form submitted');
   console.log('Form submitted');
-  setTimeout(() => {
-    const swfContainer = document.getElementById('swfContainer');
-    const fileInput = document.querySelector('input[type=file]');
-    if (fileInput.files.length > 0) {
-      const filename = fileInput.files[0].name;
-      alert('File selected: ' + filename);
-      console.log('File selected:', filename);
-      swfContainer.innerHTML = `<object data="http://upreme-space-computing-machine-wrgjw9prp79ph5995-3000.app.github.dev/uploads/${filename}" class="full" id="myObject" width="800" height="600"></object>`;
-    } else {
-      alert('No file selected');
-      console.error('No file selected');
+
+  const fileInput = document.querySelector('input[type=file]');
+  if (fileInput.files.length > 0) {
+    const file = fileInput.files[0];
+    alert('File selected: ' + file.name);
+    console.log('File selected:', file.name);
+
+    // Create FormData and append the file
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+      // Upload the file using fetch
+      const response = await fetch('https://supreme-space-computing-machine-wrgjw9prp79ph5995-3000.app.github.dev/upload', {
+        method: 'POST',
+        body: formData
+      });
+      
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      // Assuming the server returns a JSON response
+      const data = await response.json();
+      alert('File uploaded successfully');
+      console.log('File uploaded successfully:', data);
+
+      // Display the uploaded file using Ruffle
+      const swfContainer = document.getElementById('swfContainer');
+      swfContainer.innerHTML = `<object data="https://supreme-space-computing-machine-wrgjw9prp79ph5995-3000.app.github.dev/uploads/${file.name}" class="full" id="myObject" width="1920" height="1080"></object>`;
+    } catch (error) {
+      alert('Error uploading file');
+      console.error('Error uploading file:', error);
     }
-  }, 2000); // Wait for 2 seconds for the upload to complete (adjust as needed)
-  return true;
+  } else {
+    alert('No file selected');
+    console.error('No file selected');
+  }
 };
